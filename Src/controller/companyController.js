@@ -53,11 +53,11 @@ module.exports = {
 
     async createComapny(req, res) {
         try {
-            const { companyName, login, email, state, identity, password, phone } = req.body; 
+            const { companyName, login, email, state, identity, password, phone, office } = req.body; 
 
             let creating = {} 
 
-            if (!companyName || !login || !email || !state || !identity || !phone || !password) {
+            if (!companyName || !login || !email || !state || !identity || !phone || !password || !office) {
                 res.status(400).json({ error: 'Preencha todos os campos' })
             }
             creating = { companyName, email, login, state, identity, password, phone }

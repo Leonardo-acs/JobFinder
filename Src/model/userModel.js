@@ -9,7 +9,7 @@ const DataSchema = new mongoose.Schema({
     state: String,
     nationality: String,
     availabilityForm: String,
-    organiztion: String,
+    college: String,
     function: String,
     login: String,
     password: Number,
