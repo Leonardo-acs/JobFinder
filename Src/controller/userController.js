@@ -31,7 +31,7 @@ module.exports = {
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
         } else {
-            User.findOne({ loggingIn })
+            User.findOne({_id, loggingIn })
                 .then((userlogged) => {
                     cache.set('/userLogin', userlogged)
                     res.status(201).send(userlogged)

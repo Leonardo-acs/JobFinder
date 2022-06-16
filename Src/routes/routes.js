@@ -33,7 +33,7 @@ routes.put('/updateUser',verifyToken, userController.updateUser);
 
 // routes for comapnys
 routes.get('/companys', companyController.getAllComapanys);
-routes.post('/companyLogin', verifyToken, companyController.companylogin);
+routes.get('/companyLogin', verifyToken, companyController.companylogin);
 routes.post('/authenticate', companyController.authenticate);
 routes.post('/createCompany', companyController.createComapny);
 routes.get('/readCompany/:cnpj', verifyToken, companyController.readCompany);
