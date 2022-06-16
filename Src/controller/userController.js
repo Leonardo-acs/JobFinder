@@ -19,9 +19,9 @@ module.exports = {
     },
 
     async userLogin(req, res) {
-        const { login, senha } = req.body;
+        const {_id, login, senha } = req.body;
 
-        if (!login || !senha) {
+        if (!login || !senha || !_id) {
             return res.status(400).json({ error: 'Preencha todos os campos' })
         }
 
@@ -31,7 +31,7 @@ module.exports = {
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
         } else {
-            User.findOne({ loggingIn })
+            User.findOne({_id, loggingIn })
                 .then((userlogged) => {
                     cache.set('/userLogin', userlogged)
                     res.status(201).send(userlogged)

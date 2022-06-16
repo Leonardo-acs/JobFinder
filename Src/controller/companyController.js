@@ -17,9 +17,9 @@ module.exports = {
     },
 
     async companylogin(req, res) {
-        const { login, password } = req.body;
+        const { login, password, _id } = req.body;
 
-        if ( !login || !password) {
+        if ( !login || !password || !_id) {
             return res.status(400).json({ error: 'Preencha todos os campos' })
         }
 
@@ -29,7 +29,7 @@ module.exports = {
         if (cache.has('/companyLogin')) {
             return res.send(cache.get('/companyLogin'));
         } else { 
-            Company.findOne({ loggingIn })
+            Company.findOne({_id, loggingIn })
             .then((companyLogin) => {
                 cache.set('/login', companyLogin)
                 res.status(201).send(companyLogin)

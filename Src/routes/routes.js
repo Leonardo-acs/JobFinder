@@ -24,7 +24,7 @@ routes.get('/', (req, res) => {
 
 // routes for users 
 routes.get('/getAll', userController.getAllUsers);
-routes.post('/userLogin',verifyToken,  userController.userLogin);
+routes.get('/userLogin',verifyToken,  userController.userLogin);
 routes.post('/authenticate', userController.authenticate);
 routes.post('/createUser', userController.createUser);
 routes.get('/readUser/:cpf', verifyToken, userController.readUser);
@@ -33,7 +33,7 @@ routes.put('/updateUser',verifyToken, userController.updateUser);
 
 // routes for comapnys
 routes.get('/companys', companyController.getAllComapanys);
-routes.post('/companyLogin', verifyToken, companyController.companylogin);
+routes.get('/companyLogin', verifyToken, companyController.companylogin);
 routes.post('/authenticate', companyController.authenticate);
 routes.post('/createCompany', companyController.createComapny);
 routes.get('/readCompany/:cnpj', verifyToken, companyController.readCompany);
