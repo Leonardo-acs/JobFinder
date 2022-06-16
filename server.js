@@ -3,8 +3,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./Src/routes/routes');
 const fileUplaod = require('express-fileupload');
-const cors = require("cors");
 const app = express();
+
+var cors = require('cors');
+
+app.use((req, res, next) =>{
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  app.use(cors());
+  next();
+});
 
 
 mongoose.connect('mongodb+srv://Leo:PLeTys3EfbymBmrk@cluster0.beuie.mongodb.net/?retryWrites=true&w=majority',
@@ -22,8 +31,7 @@ mongoose.connect('mongodb+srv://Leo:PLeTys3EfbymBmrk@cluster0.beuie.mongodb.net/
 app.use(express.json());
 app.use(routes);
 app.use(fileUplaod());
-app.use(cors)
 
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log('Conectado');
 });

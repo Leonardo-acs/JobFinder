@@ -6,16 +6,16 @@ const jobController = require('../controller/jobController')
 const uploadController = require('../controller/uploadController')
 const verifyToken = require('../middleware/authenticateMiddleware');
 
-var cors = require('cors');
+//var cors = require('cors');
 const { Router } = require('express');
 var app = express();
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   app.use(cors());
   next();
 });
-
+*/
 const routes = express.Router();
 
 routes.get('/', (req, res) => {
@@ -24,7 +24,7 @@ routes.get('/', (req, res) => {
 
 // routes for users 
 routes.get('/getAll', userController.getAllUsers);
-routes.post('/userLogin',verifyToken,  userController.userLogin);
+routes.post('/userLogin', userController.userLogin);
 routes.post('/authenticate', userController.authenticate);
 routes.post('/createUser', userController.createUser);
 routes.get('/readUser/:cpf', verifyToken, userController.readUser);

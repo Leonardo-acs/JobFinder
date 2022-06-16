@@ -19,14 +19,14 @@ module.exports = {
     },
 
     async userLogin(req, res) {
-        const { login, senha } = req.body;
+        const { login, password } = req.body;
 
-        if (!login || !senha) {
+        if (!login || !password) {
             return res.status(400).json({ error: 'Preencha todos os campos' })
         }
 
         let loggingIn = {}
-        loggingIn = { login, senha }
+        loggingIn = { login, password }
 
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
@@ -40,9 +40,9 @@ module.exports = {
     },
 
     async authenticate(req, res) {
-        const { login, senha } = req.body;
+        const { login, password } = req.body;
 
-        const usuario = await User.findOne({ login, senha });
+        const usuario = await User.findOne({ login, password });
 
         if (!usuario) return res.status(401).json({ message: 'User not found' });
 
