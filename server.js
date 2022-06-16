@@ -1,23 +1,29 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const routes = require('./Src/routes/routes');
 const fileUplaod = require('express-fileupload');
+app.use(fileUplaod({createParentPath: true}));
 
-// aws
-const path = require('path')
-const http = require('http')
-const port = process.env.PORT || 3000;
-app.set('port', port);
-const server = http.createServer(app);
-server.listen(port);
+// Iniciando trativa para subir na AWS
+// const path = require('path')
+// const http = require('http')
+// const port = process.env.PORT || 4000;
+// app.set('port', port);
+// const server = http.createServer(app);
+// server.listen(port);
+// app.use('/', express.static(path.join(__dirname,'angular')))
+// app.use((req,res, next) => {
+//     res.sendFile(__dirname, 'angular', 'index.html');
+// })
 
-app.use('/', express.static(path.join(__dirname,'angular')))
-app.use((req,res, next) => {
-    res.sendFile(__dirname, 'angular', 'index.html');
-})
+// app.use('/', express.static(path.join(__dirname,'front-end')))
+// app.use((req,res, next) => {
+//     res.sendFile(__dirname, 'front-end', 'index.html');
+// })
+// Finalizando trativa AWS
 
+// Iniciando trativa para o erro de cors
 var cors = require('cors');
 app.use((req, res, next) =>{
   res.header("Access-Control-Allow-Origin", "*");
@@ -26,8 +32,9 @@ app.use((req, res, next) =>{
   app.use(cors());
   next();
 });
+// Finalizando tratativa para o erro de cors
 
-
+// Iniciando conexão com o mongoDb Atlas
 mongoose.connect('mongodb+srv://Leo:PLeTys3EfbymBmrk@cluster0.beuie.mongodb.net/?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
@@ -39,14 +46,11 @@ mongoose.connect('mongodb+srv://Leo:PLeTys3EfbymBmrk@cluster0.beuie.mongodb.net/
             console.log("mongo db connected successfully")
         }
     })
-
+// Finalizando conexão com o mongoDb Atlas
 app.use(express.json());
 app.use(routes);
-app.use(fileUplaod());
-app.use('/', express.static(path.join(__dirname,'front-end')))
-app.use((req,res, next) => {
-    res.sendFile(__dirname, 'front-end', 'index.html');
-})
+
+
 app.listen(4000, () => {
     console.log('Conectado');
 });

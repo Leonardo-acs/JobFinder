@@ -3,8 +3,9 @@ const jwt = require('jsonwebtoken');
 const SECRET = 'jobfinder';
 const NodeCache = require("node-cache");
 const cache = new NodeCache({ stdTTL: 10 });  
-module.exports = {
 
+
+module.exports = {
     async getAllUsers(req, res) {
         if (cache.has('/getAll')) {
             return res.send(cache.get('/getAll'));

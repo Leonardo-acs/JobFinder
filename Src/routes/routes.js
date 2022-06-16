@@ -1,21 +1,12 @@
 //externalizando rotas 
 const express = require('express');
 const userController = require('../controller/userController');
-const companyController = require('../controller/companyController')
-const jobController = require('../controller/jobController')
-const uploadController = require('../controller/uploadController')
+const companyController = require('../controller/companyController');
+const jobController = require('../controller/jobController');
+const uploadController = require('../controller/uploadController');
+const downloadController = require('../controller/downloadController');
 const verifyToken = require('../middleware/authenticateMiddleware');
 
-//var cors = require('cors');
-const { Router } = require('express');
-var app = express();
-
-/*app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  app.use(cors());
-  next();
-});
-*/
 const routes = express.Router();
 
 routes.get('/', (req, res) => {
@@ -48,7 +39,7 @@ routes.delete('/deleteJob/:_id', jobController.deleteJob);
 routes.put('/updateJob', jobController.updateJob);
 
 // routes for downloads PDF 
-routes.post('/upload', uploadController.upload )
-// routes.get('/downloadAll', downloadController.downloadAll)
-// routes.get('/download/:_id', downloadController.downloadById)
+routes.post('/upload', uploadController.upload);
+routes.get('/getAllResumes', downloadController.getAllResumes)
+routes.get('/download/:id', downloadController.downloadById)
 module.exports = routes;

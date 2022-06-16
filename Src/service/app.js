@@ -1,6 +1,5 @@
 import express from 'express';
 import routes from '../routes/routes';
-const fileupload = require("express-fileupload");
 
 class App {
     constructor() {
