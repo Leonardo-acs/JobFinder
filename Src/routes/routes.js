@@ -18,7 +18,7 @@ routes.get('/getAll', userController.getAllUsers);
 routes.post('/userLogin', userController.userLogin);
 routes.post('/authenticate', userController.authenticate);
 routes.post('/createUser', userController.createUser);
-routes.get('/readUser/:cpf', verifyToken, userController.readUser);
+routes.get('/readUser/:_id', verifyToken, userController.readUser);
 routes.delete('/deleteUser/:cpf',verifyToken, userController.deleteUser);
 routes.put('/updateUser',verifyToken, userController.updateUser);
 

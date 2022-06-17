@@ -20,14 +20,14 @@ module.exports = {
     },
 
     async userLogin(req, res) {
-        const { login, password } = req.body;
+        const { login, password, _id } = req.body;
 
-        if (!login || !password) {
+        if (!login || !password || !_id) {
             return res.status(400).json({ error: 'Preencha todos os campos' })
         }
 
         let loggingIn = {}
-        loggingIn = { login, password }
+        loggingIn = { login, password, _id }
 
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
@@ -77,8 +77,8 @@ module.exports = {
             return res.send(cache.get('/readUser'));
 
         } else {
-            const { identity } = req.params
-            User.findOne({ identity })
+            const { _id } = req.params
+            User.findOne({ _id })
                 .then((reading) => {
                     cache.set('/readUser', reading)
                     res.status(201).send(reading)
