@@ -32,6 +32,7 @@ module.exports = {
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
         } else {
+            
             User.findOne({_id, loggingIn })
                 .then((userlogged) => {
                     cache.set('/userLogin', userlogged)

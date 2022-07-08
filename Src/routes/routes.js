@@ -1,13 +1,32 @@
 //externalizando rotas 
 const express = require('express');
+const app = express();
 const userController = require('../controller/userController');
 const companyController = require('../controller/companyController');
 const jobController = require('../controller/jobController');
 const uploadController = require('../controller/uploadController');
 const downloadController = require('../controller/downloadController');
 const verifyToken = require('../middleware/authenticateMiddleware');
-
 const routes = express.Router();
+
+var cors = require('cors');
+app.use((req, res, next) =>{
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  app.use(cors());
+  next();
+});
+
+var cors = require('cors');
+routes.use((req, res, next) =>{
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  app.use(cors());
+  next();
+});
+
 
 routes.get('/', (req, res) => {
   res.json({ message: "Conectado" })
@@ -15,7 +34,7 @@ routes.get('/', (req, res) => {
 
 // routes for users 
 routes.get('/getAll', userController.getAllUsers);
-routes.post('/userLogin', userController.userLogin);
+routes.post('/userLogin',verifyToken, userController.userLogin);
 routes.post('/authenticate', userController.authenticate);
 routes.post('/createUser', userController.createUser);
 routes.get('/readUser/:_id', verifyToken, userController.readUser);
