@@ -18,15 +18,15 @@ module.exports = {
 
     async createJob(req, res) {
         try {
-            const { jobName, description, contractingCompany, contactEmail, salary } = req.body; 
+            const { jobName, companyName, description, turn, availability, contactEmail, salary } = req.body; 
 
             let creating = {} 
 
-            if (!jobName || !description || !contractingCompany || !salary || !contactEmail) {
+            if (!jobName || !description || !companyName || !salary || !contactEmail) {
                 res.status(400).json({ error: 'Preencha todos os campos' })
             }
 
-            creating = { jobName, description, contractingCompany, salary, contactEmail }
+            creating = { jobName, companyName, description, turn, availability, salary, contactEmail }
             const jobs = await Job.create(creating);
             res.status(201).json(jobs)
         } catch (error) {
