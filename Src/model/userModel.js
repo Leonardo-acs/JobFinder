@@ -13,6 +13,7 @@ const DataSchema = new mongoose.Schema({
     function: String,
     login: String,
     password: Number,
+    userType: String,
 })
 
 const user = mongoose.model('User',DataSchema)

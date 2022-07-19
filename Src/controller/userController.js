@@ -57,15 +57,15 @@ module.exports = {
 
     async createUser(req, res) {
         try {
-            const { name, email, phone, identity, state, nationality, age, college, period, login, password } = req.body; 
+            const { name, email, phone, identity, state, nationality, age, college, period, login, password, userType} = req.body; 
 
             let creating = {} 
 
-            if (!name || !email || !phone || !identity || !age || !password || !state || !nationality || !college || !period || !login) {
+            if (!name || !userType || !email || !phone || !identity || !age || !password || !state || !nationality || !college || !period || !login) {
                 res.status(400).json({ error: 'Preencha todos os campos' })
             }
 
-            creating = { name, email, phone, identity, age, state, nationality, college, period, login, password }
+            creating = { name, userType, email, phone, identity, age, state, nationality, college, period, login, password }
             const users = await User.create(creating);
             res.status(201).json(users)
         } catch (error) {
