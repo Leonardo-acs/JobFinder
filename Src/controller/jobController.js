@@ -1,6 +1,8 @@
-const Job = require('../model/jobModel'); 
+const Job = require('../model/jobModel');
 const NodeCache = require("node-cache");
-const cache = new NodeCache({ stdTTL: 10 });  
+const user = require('../model/userModel');
+const job = require('../model/jobModel');
+const cache = new NodeCache({ stdTTL: 10 });
 module.exports = {
 
     async getAlljobs(req, res) {
@@ -14,19 +16,19 @@ module.exports = {
                     res.status(200).send(user)
                 }).catch(err => res.status(500).send(err))
         }
-    },    
+    },
 
     async createJob(req, res) {
         try {
-            const { jobName, companyName, description, turn, availability, contactEmail, salary } = req.body; 
+            const { jobName, companyName, description, turn, availability, contactEmail, salary, createdBy } = req.body;
 
-            let creating = {} 
+            let creating = {}
 
-            if (!jobName || !description || !companyName || !salary || !contactEmail) {
+            if (!jobName || !description || !companyName || !salary || !contactEmail || !createdBy) {
                 res.status(400).json({ error: 'Preencha todos os campos' })
             }
 
-            creating = { jobName, companyName, description, turn, availability, salary, contactEmail }
+            creating = { jobName, companyName, description, turn, availability, salary, contactEmail, createdBy }
             const jobs = await Job.create(creating);
             res.status(201).json(jobs)
         } catch (error) {
@@ -34,18 +36,44 @@ module.exports = {
         }
     },
 
+    async applieedByUser(req, res) {
+        const { _id, appliedBy } = req.body;
+
+        if(!_id) return;
+
+        let updating = {}
+
+        updating = { appliedBy }
+
+        const job = await Job.create(updating);
+        res.status(200).json(job)
+    },
+
+    // async userApllied(req, res) {
+    //     if (cache.has('/userApplied')) {
+    //         return res.send(cache.get('/userApplied'));
+
+    //     } else {
+    //         const { appliedBy } = req.params
+    //         user.findOne({ appliedBy })
+    //             .then((reading) => {
+    //                 cache.set('/userApplied', reading)
+    //                 res.status(200).send(reading)
+    //             }).catch(err => res.status(500).send(err))
+    //     }
+    // },
+
     async readJob(req, res) {
         if (cache.has('/readJob')) {
             return res.send(cache.get('/readJob'));
 
         } else {
-            const { cpf } = req.params
-            Job.findOne({ cpf })
+            const { createdById } = req.params
+            Job.find({ createdById })
                 .then((reading) => {
                     cache.set('/readJob', reading)
-                    res.status(201).send(reading)
+                    res.status(200).send(reading)
                 }).catch(err => res.status(500).send(err))
-
         }
     },
 
@@ -61,13 +89,13 @@ module.exports = {
     },
 
     async updateJob(req, res) {
-        const { jobName, description, contractingCompany, contactEmail, salary} = req.body;
+        const { jobName, description, contractingCompany, contactEmail, salary } = req.body;
 
         let updating = {}
 
-        updating = { jobName, description, contractingCompany, contactEmail, salary}
+        updating = { jobName, description, contractingCompany, contactEmail, salary }
 
-        const job = await Job.findByIdAndUpdate({ _id }, updating, { new: true }); 
+        const job = await Job.findByIdAndUpdate({ _id }, updating, { new: true });
         res.status(200).json(job)
     }
 }

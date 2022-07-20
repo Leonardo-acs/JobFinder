@@ -32,7 +32,6 @@ module.exports = {
         if (cache.has('/userLogin')) {
             return res.send(cache.get('/userLogin'));
         } else {
-            
             User.findOne({_id, loggingIn })
                 .then((userlogged) => {
                     cache.set('/userLogin', userlogged)
@@ -82,7 +81,7 @@ module.exports = {
             User.findOne({ _id })
                 .then((reading) => {
                     cache.set('/readUser', reading)
-                    res.status(201).send(reading)
+                    res.status(200).send(reading)
                 }).catch(err => res.status(500).send(err))
 
         }

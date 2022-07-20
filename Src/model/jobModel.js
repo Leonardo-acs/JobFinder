@@ -8,6 +8,8 @@ const DataSchema = new mongoose.Schema({
     contactEmail: String,
     availability: String,
     salary: Number,
+    createdBy: String,
+    appliedBy: String,
 })
 
 const job = mongoose.model('Job', DataSchema)

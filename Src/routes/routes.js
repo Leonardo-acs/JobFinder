@@ -41,19 +41,12 @@ routes.get('/readUser/:_id', verifyToken, userController.readUser);
 routes.delete('/deleteUser/:cpf',verifyToken, userController.deleteUser);
 routes.put('/updateUser',verifyToken, userController.updateUser);
 
-// routes for comapnys
-routes.get('/companys', companyController.getAllComapanys);
-routes.get('/companyLogin', verifyToken, companyController.companylogin);
-routes.post('/authenticate', companyController.authenticate);
-routes.post('/createCompany', companyController.createComapny);
-routes.get('/readCompany/:cnpj', verifyToken, companyController.readCompany);
-routes.delete('/deleteCompany/:cnpj', verifyToken, companyController.deleteCompany);
-routes.put('/updateCompany', verifyToken, companyController.updateCompany);
-
 // routes for jobs
 routes.get('/jobs', jobController.getAlljobs);
 routes.post('/createJob', jobController.createJob);
-routes.get('/readJob/:_id', jobController.readJob);
+routes.put('/applied', jobController.applieedByUser);
+routes.get('/readJob', jobController.readJob);
+routes.get('/userApplied', jobController.userApllied);
 routes.delete('/deleteJob/:_id', jobController.deleteJob);
 routes.put('/updateJob', jobController.updateJob);
 
@@ -61,4 +54,13 @@ routes.put('/updateJob', jobController.updateJob);
 routes.post('/upload', uploadController.upload);
 routes.get('/getAllResumes', downloadController.getAllResumes)
 routes.get('/download/:id', downloadController.downloadById)
+
+// routes for company
+routes.get('/companys', companyController.getAllComapanys);
+routes.get('/companyLogin', verifyToken, companyController.companylogin);
+routes.post('/authenticate', companyController.authenticate);
+routes.post('/createCompany', companyController.createComapny);
+routes.get('/readCompany/:cnpj', verifyToken, companyController.readCompany);
+routes.delete('/deleteCompany/:cnpj', verifyToken, companyController.deleteCompany);
+routes.put('/updateCompany', verifyToken, companyController.updateCompany);
 module.exports = routes;
