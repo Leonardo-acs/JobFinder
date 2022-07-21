@@ -44,9 +44,10 @@ routes.put('/updateUser',verifyToken, userController.updateUser);
 // routes for jobs
 routes.get('/jobs', jobController.getAlljobs);
 routes.post('/createJob', jobController.createJob);
-routes.put('/applied', jobController.applieedByUser);
+routes.post('/applied', jobController.applieedByUser);
 routes.get('/readJob', jobController.readJob);
-routes.get('/userApplied', jobController.userApllied);
+routes.get('/readJobApplied', jobController.readJobApplied);
+// routes.get('/userApplied', jobController.userApllied);
 routes.delete('/deleteJob/:_id', jobController.deleteJob);
 routes.put('/updateJob', jobController.updateJob);
 
