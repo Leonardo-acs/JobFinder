@@ -8,15 +8,16 @@ const DataSchema = new mongoose.Schema({
     age: Number, 
     state: String,
     nationality: String,
-    availabilityForm: String,   
+    availability: String,   
     college: String,
     function: String,
     login: String,
     password: Number,
     userType: String,
+    period: String,
+    title: String
 })
 
 const user = mongoose.model('User',DataSchema)
-
 
 module.exports = user;

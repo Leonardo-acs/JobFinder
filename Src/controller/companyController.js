@@ -1,6 +1,9 @@
 const Company = require('../model/companyModel');
 const NodeCache = require("node-cache");
 const cache = new NodeCache({ stdTTL: 10 }); 
+const jwt = require('jsonwebtoken');
+const SECRET = 'jobfinder';
+
 module.exports = {
 
     async getAllComapanys(req, res) {
@@ -24,23 +27,21 @@ module.exports = {
         }
 
         let loggingIn = {}
-        loggingIn = { login, senha }
+        loggingIn = { login, password, _id }
 
-        if (cache.has('/companyLogin')) {
-            return res.send(cache.get('/companyLogin'));
-        } else { 
+
             Company.findOne({_id, loggingIn })
             .then((companyLogin) => {
-                cache.set('/login', companyLogin)
+                cache.set('/companyLogin', companyLogin)
                 res.status(201).send(companyLogin)
             }).catch(err => res.status(500).send(err)) 
-        }
+        
     },
 
     async authenticate(req, res) {
-        const { login, senha } = req.body;
+        const { login, password } = req.body;
 
-        const company = await Company.findOne({ login, senha });
+        const company = await Company.findOne({ login, password });
 
         if (!company) return res.status(401).json({ message: 'User not found' });
 
@@ -73,8 +74,8 @@ module.exports = {
             return res.send(cache.get('/readCompany'));
 
         } else {
-            const { identity } = req.params
-            Company.findOne({ identity })
+            const { _id } = req.params
+            Company.findOne({ _id })
                 .then((reading) => {
                     cache.set('/readCompany', reading)
                     res.status(201).send(reading)

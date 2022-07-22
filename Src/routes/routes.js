@@ -38,7 +38,7 @@ routes.post('/userLogin',verifyToken, userController.userLogin);
 routes.post('/authenticate', userController.authenticate);
 routes.post('/createUser', userController.createUser);
 routes.get('/readUser/:_id', verifyToken, userController.readUser);
-routes.delete('/deleteUser/:cpf',verifyToken, userController.deleteUser);
+routes.delete('/deleteUser/:_id',verifyToken, userController.deleteUser);
 routes.put('/updateUser',verifyToken, userController.updateUser);
 
 // routes for jobs
@@ -59,9 +59,9 @@ routes.get('/download/:id', downloadController.downloadById)
 // routes for company
 routes.get('/companys', companyController.getAllComapanys);
 routes.get('/companyLogin', verifyToken, companyController.companylogin);
-routes.post('/authenticate', companyController.authenticate);
+routes.post('/authenticateCompany', companyController.authenticate);
 routes.post('/createCompany', companyController.createComapny);
-routes.get('/readCompany/:cnpj', verifyToken, companyController.readCompany);
+routes.get('/readCompany/:_id', verifyToken, companyController.readCompany);
 routes.delete('/deleteCompany/:cnpj', verifyToken, companyController.deleteCompany);
 routes.put('/updateCompany', verifyToken, companyController.updateCompany);
 module.exports = routes;

@@ -56,15 +56,15 @@ module.exports = {
 
     async createUser(req, res) {
         try {
-            const { name, email, phone, identity, state, nationality, age, college, period, login, password, userType} = req.body; 
+            const { name, email, phone, identity, state, nationality, age, college, availability, title, period, login, password, userType } = req.body;
 
-            let creating = {} 
+            let creating = {}
 
             if (!name || !userType || !email || !phone || !identity || !age || !password || !state || !nationality || !college || !period || !login) {
                 res.status(400).json({ error: 'Preencha todos os campos' })
             }
 
-            creating = { name, userType, email, phone, identity, age, state, nationality, college, period, login, password }
+            creating = { name, userType, email, phone, identity, age, state, nationality, availability, title, college, period, login, password }
             const users = await User.create(creating);
             res.status(201).json(users)
         } catch (error) {
@@ -89,8 +89,8 @@ module.exports = {
 
     async deleteUser(req, res) {
         try {
-            const { identity } = req.params;
-            const usuarios = await User.findOneAndDelete({ identity });
+            const { _id } = req.params;
+            const usuarios = await User.findOneAndDelete({ _id });
             res.status(204).json(usuarios)
         } catch (error) {
             res.json({ error: error })
@@ -99,13 +99,13 @@ module.exports = {
     },
 
     async updateUser(req, res) {
-        const { name, email, phone, identity, state, nationality, age, college, period, login, password } = req.body;
+        const { name, email, phone, identity, state, nationality, availability, title, age, college, period, login, password } = req.body;
 
         let updating = {}
 
-        updating = { name, email, phone, identity, state, nationality, age, college, period, login, password}
+        updating = { name, email, phone, identity, state, nationality, age, college, availability, title, period, login, password }
 
-        const users = await User.findOneAndUpdate({ identity }, updating, { new: true }); 
+        const users = await User.findOneAndUpdate({ identity }, updating, { new: true });
         res.status(200).json(users)
     }
 }
