@@ -42,8 +42,8 @@ module.exports = {
             return res.send(cache.get('/readJob'));
 
         } else {
-            const { createdById } = req.params
-            Job.find({ createdById })
+            const { _id } = req.params
+            Job.find({ _id })
                 .then((reading) => {
                     cache.set('/readJob', reading)
                     res.status(200).send(reading)
@@ -70,8 +70,8 @@ module.exports = {
     },
 
     async readJobApplied(req, res) {
-        const { job_id } = req.params
-        jobApplied.find({ job_id })
+        const { appliedBy } = req.params
+        jobApplied.find({ appliedBy })
             .then((reading) => {
                 cache.set('/readJobApplied', reading)
                 res.status(200).send(reading)
